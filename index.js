@@ -1,3 +1,4 @@
+const db = require('./db/connection.js');
 const inquirer = require("inquirer");
 
 const promptUserChoices = () => {
