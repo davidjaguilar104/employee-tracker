@@ -77,7 +77,7 @@ function viewRoles() {
 }
 
 function viewEmployees() {
-  const sql = `SELECT employees.*, roles.title AS title
+  const sql = `SELECT employees.*, roles.title AS job_title, roles.salary AS salary
   FROM employees
   LEFT JOIN roles
   ON employees.role_id = roles.id`;
