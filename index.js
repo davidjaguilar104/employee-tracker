@@ -78,10 +78,12 @@ function viewRoles() {
 }
 
 function viewEmployees() {
-  const sql = `SELECT employees.*, employees.manager_id AS manager, roles.title AS job_title, roles.salary AS salary
+  const sql = `SELECT employees.*, employees.manager_id AS manager, roles.title AS job_title, roles.salary AS salary, departments.name AS department
   FROM employees
   LEFT JOIN roles
-  ON employees.role_id = roles.id`;
+  ON employees.role_id = roles.id
+  LEFT JOIN departments
+  ON departments.id = roles.department_id`;
   db.query(sql, (err, rows) => {
     if (err) throw err;
 
