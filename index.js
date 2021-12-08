@@ -1,5 +1,6 @@
 const db = require("./db/connection.js");
 const inquirer = require("inquirer");
+require('console.table');
 
 function promptUserChoices() {
   inquirer
@@ -77,7 +78,7 @@ function viewRoles() {
 }
 
 function viewEmployees() {
-  const sql = `SELECT employees.*, roles.title AS job_title, roles.salary AS salary
+  const sql = `SELECT employees.*, employees.manager_id AS manager, roles.title AS job_title, roles.salary AS salary
   FROM employees
   LEFT JOIN roles
   ON employees.role_id = roles.id`;
