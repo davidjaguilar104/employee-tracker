@@ -1,11 +1,11 @@
 const db = require("./db/connection.js");
 const inquirer = require("inquirer");
 
-const promptUserChoices = () => {
-  return inquirer.prompt([
+function promptUserChoices() {
+  inquirer.prompt([
     {
       type: "list",
-      name: "initialOptions",
+      name: "task",
       message: "What would you like to do?",
       choices: [
         "View All Departments",
@@ -18,7 +18,13 @@ const promptUserChoices = () => {
         "Exit",
       ],
     },
-  ]);
+  ]).then(function({ task }) {
+    switch (task) {
+      case "View All Departments":
+      viewDepartments();
+      break;
+    }
+  })
 };
 
 promptUserChoices();
