@@ -64,7 +64,10 @@ function viewDepartments() {
 }
 
 function viewRoles() {
-  const sql = `SELECT * FROM roles`;
+  const sql = `SELECT roles.*, departments.name AS department 
+  FROM roles 
+  LEFT JOIN departments
+  ON roles.department_id = departments.id`;
   db.query(sql, (err, rows) => {
     if (err) throw err;
 
