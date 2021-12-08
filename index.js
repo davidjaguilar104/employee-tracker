@@ -1,4 +1,4 @@
-const db = require('./db/connection.js');
+const db = require("./db/connection.js");
 const inquirer = require("inquirer");
 
 const promptUserChoices = () => {
@@ -15,6 +15,7 @@ const promptUserChoices = () => {
         "Add a Role",
         "Add an Employee",
         "Update an Employee Role",
+        "Exit",
       ],
     },
   ]);
