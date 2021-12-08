@@ -20,7 +20,7 @@ function promptUserChoices() {
         ],
       },
     ])
-    .then(function ({ task }) {
+    .then(({ task }) => {
       switch (task) {
         case "View All Departments":
           viewDepartments();
