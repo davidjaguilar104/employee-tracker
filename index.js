@@ -1,6 +1,6 @@
 const db = require("./db/connection.js");
 const inquirer = require("inquirer");
-require('console.table');
+require("console.table");
 
 function promptUserChoices() {
   inquirer
@@ -36,7 +36,7 @@ function promptUserChoices() {
           break;
 
         case "Add a Department":
-          viewDepartments();
+          addDepartment();
           break;
 
         case "Add a Role":
@@ -78,18 +78,31 @@ function viewRoles() {
 }
 
 function viewEmployees() {
-  const sql = `SELECT employees.*, employees.manager_id AS manager, roles.title AS job_title, roles.salary AS salary, departments.name AS department
+  const sql = `SELECT employees.*, CONCAT(manager.first_name, ' ' ,manager.last_name) AS manager, roles.title AS job_title, roles.salary AS salary, departments.name AS department
   FROM employees
   LEFT JOIN roles
   ON employees.role_id = roles.id
   LEFT JOIN departments
-  ON departments.id = roles.department_id`;
+  ON departments.id = roles.department_id
+  LEFT JOIN employees manager ON manager.id = employees.manager_id`;
   db.query(sql, (err, rows) => {
     if (err) throw err;
 
     console.table(rows);
     promptUserChoices();
   });
+}
+
+function addDepartment() {
+  inquirer.prompt([
+    {
+      type: "input",
+      name: "department",
+      message: "What is the name of the Department you would like to add?",
+    },
+  ]).then(answer => {
+    console.log(answer.department); // answer object has the department property where user input is stored
+  })
 }
 
 promptUserChoices();
