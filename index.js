@@ -94,15 +94,23 @@ function viewEmployees() {
 }
 
 function addDepartment() {
-  inquirer.prompt([
-    {
-      type: "input",
-      name: "department",
-      message: "What is the name of the Department you would like to add?",
-    },
-  ]).then(answer => {
-    console.log(answer.department); // answer object has the department property where user input is stored
-  })
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "department",
+        message: "What is the name of the Department you would like to add?",
+      },
+    ])
+    .then((answer) => {
+      console.log(answer.department); // answer object has the department property where user input is stored
+      const sql = `INSERT INTO departments (name) VALUES ('${answer.department}')`;
+      db.query(sql, (err, res) => {
+        if (err) throw err;
+        console.table(res);
+        promptUserChoices();
+      });
+    });
 }
 
 promptUserChoices();
