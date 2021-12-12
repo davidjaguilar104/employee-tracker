@@ -122,17 +122,17 @@ function addRole() {
         message: "What is the name of the Role you would like to add?",
       },
       {
-        type: 'list',
-        name: 'roleSalary',
-        message: 'What is the Salary of the Role?',
-        choices: [100000, 125000, 150000, 80000]
+        type: "list",
+        name: "roleSalary",
+        message: "What is the Salary of the Role?",
+        choices: [100000, 125000, 150000, 80000],
       },
       {
-        type: 'list',
-        name: 'roleDepartmentId',
-        message: 'What Department does the Role belong to?',
-        choices: [1, 2, 3, 4, 5]
-      }
+        type: "list",
+        name: "roleDepartmentId",
+        message: "What Department does the Role belong to?",
+        choices: [1, 2, 3, 4, 5],
+      },
     ])
     .then((answer) => {
       console.log(answer.roleName); // answer object has the roleName property where user input is stored
@@ -147,6 +147,44 @@ function addRole() {
     });
 }
 
-
+function addEmployee() {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "employeeFirstName",
+        message:
+          "What is the First Name of the Employee you would like to add?",
+      },
+      {
+        type: "input",
+        name: "employeeLastName",
+        message: "What is the Last Name of the Employee you would like to add?",
+      },
+      {
+        type: "list",
+        name: "employeeRole",
+        message: "What Role does the Employee take?",
+        choices: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+      },
+      {
+        type: "list",
+        name: "employeeManager",
+        message: "Who is the Manager of this Employee?",
+        choices: [1, 2, 3, 4, 5, 6, 7, 8],
+      },
+    ])
+    .then((answer) => {
+      console.log(answer.employeeFirstName); // answer object has the employeeFirstName property where user input is stored
+      const sql = `INSERT INTO employees (first_name, last_name, role_id, manager_id) 
+      VALUES 
+      ('${answer.employeeFirstName}', '${answer.employeeLastName}', ${answer.employeeRole}, ${answer.employeeManager})`;
+      db.query(sql, (err, res) => {
+        if (err) throw err;
+        console.table(res);
+        promptUserChoices();
+      });
+    });
+}
 
 promptUserChoices();
