@@ -40,15 +40,15 @@ function promptUserChoices() {
           break;
 
         case "Add a Role":
-          viewDepartments();
+          addRole();
           break;
 
         case "Add an Employee":
-          viewDepartments();
+          addEmployee();
           break;
 
         case "Update an Employee Role":
-          viewDepartments();
+          updateEmployee();
           break;
       }
     });
@@ -112,5 +112,41 @@ function addDepartment() {
       });
     });
 }
+
+function addRole() {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "roleName",
+        message: "What is the name of the Role you would like to add?",
+      },
+      {
+        type: 'list',
+        name: 'roleSalary',
+        message: 'What is the Salary of the Role?',
+        choices: [100000, 125000, 150000, 80000]
+      },
+      {
+        type: 'list',
+        name: 'roleDepartmentId',
+        message: 'What Department does the Role belong to?',
+        choices: [1, 2, 3, 4, 5]
+      }
+    ])
+    .then((answer) => {
+      console.log(answer.roleName); // answer object has the roleName property where user input is stored
+      const sql = `INSERT INTO roles (title, salary, department_id) 
+      VALUES 
+      ('${answer.roleName}', ${answer.roleSalary}, ${answer.roleDepartmentId})`;
+      db.query(sql, (err, res) => {
+        if (err) throw err;
+        console.table(res);
+        promptUserChoices();
+      });
+    });
+}
+
+
 
 promptUserChoices();
