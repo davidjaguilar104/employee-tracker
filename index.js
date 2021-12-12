@@ -187,4 +187,41 @@ function addEmployee() {
     });
 }
 
+function updateEmployee() {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "employeeUpFirstName",
+        message:
+          "What is the First Name of the Employee you would like to Update?",
+      },
+      {
+        type: "input",
+        name: "employeeUpLastName",
+        message:
+          "What is the Last Name of the Employee you would like to Update?",
+      },
+      {
+        type: "list",
+        name: "employeeUpRole",
+        message: "What is the new Role for this Employee?",
+        choices: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+      },
+    ])
+    .then((answer) => {
+      console.log(answer.employeeUpFirstName);
+      console.log(answer.employeeUpLastName);
+      console.log(answer.employeeUpRole);
+
+      const sql = `UPDATE employees SET role_id = ${answer.employeeUpRole} 
+    WHERE first_name = '${answer.employeeUpFirstName}' AND last_name = '${answer.employeeUpLastName}'`;
+
+      db.query(sql, (err, res) => {
+        if (err) throw err;
+        console.table(res);
+      });
+    });
+}
+
 promptUserChoices();
