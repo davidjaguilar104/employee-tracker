@@ -172,20 +172,57 @@ function addEmployee() {
         message: "What is the Last Name of the Employee you would like to add?",
       },
       {
-        type: "list",
+        type: "input",
         name: "employeeRole",
         message: "What Role does the Employee take?",
-        choices: [1, 2, 3, 4, 5, 6, 7, 8, 9],
       },
       {
-        type: "list",
+        type: "input",
         name: "employeeManager",
         message: "Who is the Manager of this Employee?",
-        choices: [1, 2, 3, 4, 5, 6, 7, 8],
       },
     ])
     .then((answer) => {
       console.log(answer.employeeFirstName); // answer object has the employeeFirstName property where user input is stored
+      if (answer.employeeRole === "Sales Lead") {
+        answer.employeeRole = 1;
+      } else if (answer.employeeRole === "Salesperson") {
+        answer.employeeRole = 2;
+      } else if (answer.employeeRole === "Lead Engineer") {
+        answer.employeeRole = 3;
+      } else if (answer.employeeRole === "Software Engineer") {
+        answer.employeeRole = 4;
+      } else if (answer.employeeRole === "Account Manager") {
+        answer.employeeRole = 5;
+      } if (answer.employeeRole === "Accountant") {
+        answer.employeeRole = 6;
+      } else if (answer.employeeRole === "Legal Team Lead") {
+        answer.employeeRole = 7;
+      } else if (answer.employeeRole === "Lawyer") {
+        answer.employeeRole = 8;
+      } else if (answer.employeeRole === "Help Desk") {
+        answer.employeeRole = 9;
+      } 
+
+      if (answer.employeeManager === "John Doe") {
+        answer.employeeManager = 1;
+      } else if (answer.employeeManager === "Mike Chan") {
+        answer.employeeManager = 2;
+      } else if (answer.employeeManager === "Ashley Rodriguez") {
+        answer.employeeManager = 3;
+      } else if (answer.employeeManager === "Kevin Tupik") {
+        answer.employeeManager = 4;
+      } else if (answer.employeeManager === "Kunal Singh") {
+        answer.employeeManager = 5;
+      } else if (answer.employeeManager === "Malia Brown") {
+        answer.employeeManager = 6;
+      } else if (answer.employeeManager === "Sarah Lourd") {
+        answer.employeeManager = 7;
+      } else if (answer.employeeManager === "Tom Allen") {
+        answer.employeeManager = 8;
+      }
+      
+      
       const sql = `INSERT INTO employees (first_name, last_name, role_id, manager_id) 
       VALUES 
       ('${answer.employeeFirstName}', '${answer.employeeLastName}', ${answer.employeeRole}, ${answer.employeeManager})`;
@@ -213,16 +250,31 @@ function updateEmployee() {
           "What is the Last Name of the Employee you would like to Update?",
       },
       {
-        type: "list",
+        type: "input",
         name: "employeeUpRole",
         message: "What is the new Role for this Employee?",
-        choices: [1, 2, 3, 4, 5, 6, 7, 8, 9],
       },
     ])
     .then((answer) => {
-      console.log(answer.employeeUpFirstName);
-      console.log(answer.employeeUpLastName);
-      console.log(answer.employeeUpRole);
+      if (answer.employeeUpRole === "Sales Lead") {
+        answer.employeeUpRole = 1;
+      } else if (answer.employeeUpRole === "Salesperson") {
+        answer.employeeUpRole = 2;
+      } else if (answer.employeeUpRole === "Lead Engineer") {
+        answer.employeeUpRole = 3;
+      } else if (answer.employeeUpRole === "Software Engineer") {
+        answer.employeeUpRole = 4;
+      } else if (answer.employeeUpRole === "Account Manager") {
+        answer.employeeUpRole = 5;
+      } if (answer.employeeUpRole === "Accountant") {
+        answer.employeeUpRole = 6;
+      } else if (answer.employeeUpRole === "Legal Team Lead") {
+        answer.employeeUpRole = 7;
+      } else if (answer.employeeUpRole === "Lawyer") {
+        answer.employeeUpRole = 8;
+      } else if (answer.employeeUpRole === "Help Desk") {
+        answer.employeeUpRole = 9;
+      } 
 
       const sql = `UPDATE employees SET role_id = ${answer.employeeUpRole} 
     WHERE first_name = '${answer.employeeUpFirstName}' AND last_name = '${answer.employeeUpLastName}'`;
