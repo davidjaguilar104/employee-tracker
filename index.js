@@ -128,14 +128,24 @@ function addRole() {
         choices: [100000, 125000, 150000, 80000],
       },
       {
-        type: "list",
+        type: "input",
         name: "roleDepartmentId",
         message: "What Department does the Role belong to?",
-        choices: [1, 2, 3, 4, 5],
       },
     ])
     .then((answer) => {
       console.log(answer.roleName); // answer object has the roleName property where user input is stored
+      if (answer.roleDepartmentId === "Sales") {
+        answer.roleDepartmentId = 1;
+      } else if (answer.roleDepartmentId === "Engineering") {
+        answer.roleDepartmentId = 2;
+      } else if (answer.roleDepartmentId === "Finance") {
+        answer.roleDepartmentId = 3;
+      } else if (answer.roleDepartmentId === "Legal") {
+        answer.roleDepartmentId = 4;
+      } else if (answer.roleDepartmentId === "IT") {
+        answer.roleDepartmentId = 5;
+      }
       const sql = `INSERT INTO roles (title, salary, department_id) 
       VALUES 
       ('${answer.roleName}', ${answer.roleSalary}, ${answer.roleDepartmentId})`;
@@ -220,6 +230,7 @@ function updateEmployee() {
       db.query(sql, (err, res) => {
         if (err) throw err;
         console.table(res);
+        promptUserChoices();
       });
     });
 }
